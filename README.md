@@ -66,7 +66,7 @@ skillconnect/
 
 - Login/SignUp
   
-![image](https://github.com/user-attachments/assets/f781e3f7-a209-4bff-995f-9b380601b88d)
+![image](https://github.com/user-attachments/assets/5dad3a06-d3f1-4f09-b140-b53d27e9e54a)
 
 - Admin Dashboard
   
