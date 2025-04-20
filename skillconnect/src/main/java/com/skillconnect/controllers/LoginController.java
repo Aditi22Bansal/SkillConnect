@@ -16,6 +16,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import java.io.InputStream;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,6 +38,9 @@ public class LoginController {
     @FXML private JFXRadioButton registerAdminRadio;
     @FXML private JFXRadioButton registerVolunteerRadio;
 
+    @FXML
+    private ImageView loginIllustration;
+
     private ToggleGroup loginRoleGroup;
     private ToggleGroup registerRoleGroup;
 
@@ -50,6 +56,32 @@ public class LoginController {
         registerAdminRadio.setToggleGroup(registerRoleGroup);
         registerVolunteerRadio.setToggleGroup(registerRoleGroup);
         registerAdminRadio.setSelected(true);
+
+        // Load the image with debug information
+        try {
+            System.out.println("Attempting to load image...");
+            String imagePath = "/images/login-illustration.png";
+            System.out.println("Image path: " + imagePath);
+
+            InputStream imageStream = getClass().getResourceAsStream(imagePath);
+            if (imageStream != null) {
+                System.out.println("Image stream found successfully");
+                Image image = new Image(imageStream);
+                loginIllustration.setImage(image);
+                System.out.println("Image set to ImageView");
+            } else {
+                System.out.println("Image stream is null - file not found");
+                // Try alternative path
+                String altPath = "file:src/main/resources/images/login-illustration.png";
+                System.out.println("Trying alternative path: " + altPath);
+                Image image = new Image(altPath);
+                loginIllustration.setImage(image);
+                System.out.println("Image set using alternative path");
+            }
+        } catch (Exception e) {
+            System.out.println("Error loading image: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML

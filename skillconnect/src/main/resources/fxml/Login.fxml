@@ -5,6 +5,9 @@
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.*?>
 
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
@@ -12,17 +15,25 @@
       style="-fx-background-color: white;">
 
     <!-- Left Panel - Welcome Section -->
-    <VBox prefWidth="500" alignment="CENTER" spacing="20"
+    <VBox prefWidth="500" alignment="CENTER" spacing="30"
           style="-fx-background-color: #2196F3;">
         <padding>
-            <Insets top="40" right="40" bottom="40" left="40"/>
+            <Insets top="60" right="40" bottom="60" left="40"/>
         </padding>
 
-        <Text text="Welcome to"
-              style="-fx-fill: white; -fx-font-size: 24px; -fx-font-family: 'Segoe UI Light';"/>
-        <Text text="SkillConnect"
-              style="-fx-fill: white; -fx-font-size: 48px; -fx-font-weight: bold;
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);"/>
+        <VBox alignment="CENTER" spacing="10">
+            <Text text="Welcome to"
+                  style="-fx-fill: white; -fx-font-size: 24px; -fx-font-family: 'Segoe UI Light';"/>
+            <Text text="SkillConnect"
+                  style="-fx-fill: white; -fx-font-size: 48px; -fx-font-weight: bold;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 0);"/>
+        </VBox>
+
+        <!-- Login Illustration -->
+        <ImageView fx:id="loginIllustration" fitWidth="350" fitHeight="250" preserveRatio="true">
+            <Image url="file:src/main/resources/images/login-illustration.png"/>
+        </ImageView>
+
         <Text text="Connect with skilled professionals and collaborate on exciting projects"
               style="-fx-fill: white; -fx-font-size: 16px; -fx-text-alignment: center; -fx-opacity: 0.9;"
               wrappingWidth="400"/>
