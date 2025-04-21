@@ -19,10 +19,13 @@ com\skillconnect\controllers\ViewProjectsController.class
 com\skillconnect\controllers\MyApplicationsController$1.class
 com\skillconnect\controllers\ViewRequestsController.class
 com\skillconnect\models\VolunteerProfile.class
+com\skillconnect\services\ProjectService.class
 com\skillconnect\utils\SessionManager.class
+com\skillconnect\utils\ValidationUtils.class
 com\skillconnect\controllers\MyApplicationsController.class
 com\skillconnect\services\ApplicationService.class
 com\skillconnect\models\Message.class
+com\skillconnect\services\ProjectServiceImpl.class
 com\skillconnect\models\Request.class
 com\skillconnect\models\ChatMessage.class
 com\skillconnect\utils\PasswordUtils.class

@@ -24,13 +24,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import com.skillconnect.utils.ValidationUtils;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 public class VolunteerProfileController implements Initializable {
 
-    @FXML private JFXTextField fullNameField;
-    @FXML private JFXTextField emailField;
-    @FXML private JFXTextField phoneField;
-    @FXML private JFXTextArea bioField;
+    @FXML private TextField fullNameField;
+    @FXML private TextField emailField;
+    @FXML private TextField phoneField;
+    @FXML private TextArea bioField;
+    @FXML private TextField skillField;
     @FXML private JFXComboBox<String> skillsComboBox;
     @FXML private JFXTextField customSkillField;
     @FXML private JFXButton addCustomSkillButton;
@@ -110,39 +115,46 @@ public class VolunteerProfileController implements Initializable {
         }
     }
 
-    private void addSkillToContainer(String skill) {
-        // Check if skill already exists
-        for (var node : skillsContainer.getChildren()) {
-            if (node instanceof HBox) {
-                HBox skillBox = (HBox) node;
-                Label skillLabel = (Label) skillBox.getChildren().get(0);
-                if (skillLabel.getText().equals(skill)) {
-                    return; // Skill already exists
-                }
+    @FXML
+    private void handleAddSkill() {
+        String skill = skillField.getText().trim();
+        if (!skill.isEmpty()) {
+            // Get current skill count
+            int currentSkillCount = skillsContainer.getChildren().size();
+
+            if (!ValidationUtils.isValidSkillCount(currentSkillCount + 1)) {
+                AlertHelper.showWarningAlert("Validation Error",
+                    "Too Many Skills",
+                    "You can add a maximum of " + ValidationUtils.MAX_SKILLS_PER_USER + " skills.");
+                return;
             }
+
+            addSkillToContainer(skill);
+            skillField.clear();
         }
+    }
 
-        if (skillsBuilder.length() > 0) {
-            skillsBuilder.append(",");
-        }
-        skillsBuilder.append(skill);
+    private void addSkillToContainer(String skill) {
+        if (!skillsBuilder.toString().contains(skill)) {
+            // Create skill chip
+            HBox skillChip = new HBox(5);
+            skillChip.getStyleClass().add("skill-chip");
 
-        HBox skillBox = new HBox(5);
-        skillBox.getStyleClass().add("skill-box");
+            Label skillLabel = new Label(skill);
+            FontAwesomeIconView removeIcon = new FontAwesomeIconView(FontAwesomeIcon.TIMES);
+            JFXButton removeButton = new JFXButton("", removeIcon);
+            removeButton.getStyleClass().add("remove-skill-button");
 
-        Label skillLabel = new Label(skill);
-        FontAwesomeIconView removeIcon = new FontAwesomeIconView();
-        removeIcon.setGlyphName("TIMES");
-        removeIcon.setStyleClass("remove-icon");
+            removeButton.setOnAction(e -> {
+                skillsContainer.getChildren().remove(skillChip);
+                updateSkillsBuilder();
+            });
 
-        JFXButton removeButton = new JFXButton("", removeIcon);
-        removeButton.setOnAction(e -> {
-            skillsContainer.getChildren().remove(skillBox);
+            skillChip.getChildren().addAll(skillLabel, removeButton);
+            skillsContainer.getChildren().add(skillChip);
+
             updateSkillsBuilder();
-        });
-
-        skillBox.getChildren().addAll(skillLabel, removeButton);
-        skillsContainer.getChildren().add(skillBox);
+        }
     }
 
     private void updateSkillsBuilder() {
@@ -192,9 +204,17 @@ public class VolunteerProfileController implements Initializable {
 
     private void saveProfile() {
         try {
+            String phone = phoneField.getText().trim();
+            if (!phone.isEmpty() && !ValidationUtils.isValidPhone(phone)) {
+                AlertHelper.showErrorAlert("Validation Error",
+                    "Invalid Phone Number",
+                    "Please enter a valid 10-digit phone number.");
+                return;
+            }
+
             profile.setFullName(fullNameField.getText());
             profile.setEmail(emailField.getText());
-            profile.setPhone(phoneField.getText());
+            profile.setPhone(phone);
             profile.setBio(bioField.getText());
             profile.setSkills(skillsBuilder.toString());
 

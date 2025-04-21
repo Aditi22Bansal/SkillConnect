@@ -13,6 +13,7 @@ D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\Profil
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\models\Skill.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\components\MessageCell.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\ViewProjectsController.java
+D:\javafx project\skillconnect\src\main\java\com\skillconnect\utils\ValidationUtils.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\models\User.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\ActiveProjectsController.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\ApplyProjectDialogController.java
@@ -26,7 +27,9 @@ D:\javafx project\skillconnect\src\main\java\com\skillconnect\utils\DatabaseConn
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\ChatController.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\VolunteerDashboardController.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\models\Message.java
+D:\javafx project\skillconnect\src\main\java\com\skillconnect\services\ProjectService.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\CreateProjectController.java
+D:\javafx project\skillconnect\src\main\java\com\skillconnect\services\ProjectServiceImpl.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\LoginController.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\controllers\ReviewApplicationsController.java
 D:\javafx project\skillconnect\src\main\java\com\skillconnect\models\VolunteerProfile.java
