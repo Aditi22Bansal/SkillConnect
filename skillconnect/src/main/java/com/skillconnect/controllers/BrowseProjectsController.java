@@ -89,6 +89,12 @@ public class BrowseProjectsController implements Initializable {
                             openButton.setOnAction(e -> updateProjectStatus(project, "OPEN"));
                             actionButtons.getChildren().add(openButton);
                         }
+
+                        // Add delete button for admin
+                        JFXButton deleteButton = new JFXButton("Delete");
+                        deleteButton.getStyleClass().add("button-danger");
+                        deleteButton.setOnAction(e -> handleDeleteProject(project));
+                        actionButtons.getChildren().add(deleteButton);
                     } else {
                         // Volunteer sees Apply button
                         JFXButton applyButton = new JFXButton("Apply");
@@ -216,5 +222,32 @@ public class BrowseProjectsController implements Initializable {
                        project.getRequiredSkills().toLowerCase().contains(searchText);
             });
         });
+    }
+
+    private void handleDeleteProject(Project project) {
+        try {
+            // Show confirmation dialog
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Confirm Deletion");
+            confirmation.setHeaderText("Delete Project");
+            confirmation.setContentText("Are you sure you want to delete this project? This action cannot be undone.");
+
+            if (confirmation.showAndWait().get() == ButtonType.OK) {
+                project.delete();
+                AlertUtils.showInformationAlert(
+                    "Success",
+                    null,
+                    "Project deleted successfully!"
+                );
+                loadProjects(); // Reload to refresh the view
+            }
+        } catch (SQLException e) {
+            AlertUtils.showErrorAlert(
+                "Delete Error",
+                null,
+                "Failed to delete project: " + e.getMessage()
+            );
+            e.printStackTrace();
+        }
     }
 }

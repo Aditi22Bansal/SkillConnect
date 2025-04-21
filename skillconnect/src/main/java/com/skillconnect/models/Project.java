@@ -255,6 +255,75 @@ public class Project {
         }
         return projects;
     }
+
+    public void delete() throws SQLException {
+        Connection conn = null;
+        try {
+            conn = DatabaseConnection.getConnection();
+            System.out.println("Starting delete transaction for project ID: " + this.getId());
+
+            // Disable auto-commit
+            conn.setAutoCommit(false);
+
+            // First check if the project exists
+            String checkQuery = "SELECT COUNT(*) FROM projects WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(checkQuery)) {
+                stmt.setInt(1, this.getId());
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next() && rs.getInt(1) == 0) {
+                    throw new SQLException("Project not found in database: " + this.getId());
+                }
+            }
+
+            // Delete all associated project applications
+            String deleteApplicationsQuery = "DELETE FROM project_applications WHERE project_id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(deleteApplicationsQuery)) {
+                stmt.setInt(1, this.getId());
+                int applicationsDeleted = stmt.executeUpdate();
+                System.out.println("Deleted " + applicationsDeleted + " project applications");
+            }
+
+            // Delete the project
+            String deleteProjectQuery = "DELETE FROM projects WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(deleteProjectQuery)) {
+                stmt.setInt(1, this.getId());
+                int projectsDeleted = stmt.executeUpdate();
+                System.out.println("Deleted " + projectsDeleted + " projects");
+
+                if (projectsDeleted == 0) {
+                    throw new SQLException("Failed to delete project: " + this.getId());
+                }
+            }
+
+            // Commit the transaction
+            conn.commit();
+            System.out.println("Delete transaction committed successfully");
+
+        } catch (SQLException e) {
+            System.err.println("Error during delete: " + e.getMessage());
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                    System.err.println("Transaction rolled back");
+                } catch (SQLException ex) {
+                    System.err.println("Error during rollback: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+            throw e;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                    DatabaseConnection.closeConnection(conn);
+                    System.out.println("Database connection closed");
+                } catch (SQLException e) {
+                    System.err.println("Error closing connection: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
 
 
