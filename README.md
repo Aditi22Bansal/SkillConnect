@@ -1,6 +1,6 @@
 ## 💼 SkillConnect
 
-**SkillConnect** is a skill-based collaboration platform that enables users to post, discover, and apply for projects based on their skills and interests. Designed with an intuitive JavaFX GUI, it facilitates smooth communication and collaboration among students and project creators.
+**SkillConnect** is a skill-based collaboration platform that enables users to post, discover, and apply for projects based on their skills and interests. The platform serves as a project management system where admins/organizations can post projects requiring specific skills, and volunteers can apply to contribute their expertise. The application features a dual-role system (Admin and Volunteer) with distinct dashboards, real-time chat functionality, and a comprehensive project management workflow.  Designed with an intuitive JavaFX GUI, it facilitates smooth communication and collaboration among volunteers and project creators.
 
 ---
 
