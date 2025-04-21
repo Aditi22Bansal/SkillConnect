@@ -33,9 +33,8 @@
 
         <!-- Message Input Area -->
         <HBox spacing="10" alignment="CENTER">
-            <TextField fx:id="messageField" promptText="Type your message..."
-                      HBox.hgrow="ALWAYS" onAction="#handleSendMessage"/>
-            <Button fx:id="sendButton" text="Send" onAction="#handleSendMessage" styleClass="send-button"/>
+            <TextField fx:id="messageField" promptText="Type your message..." HBox.hgrow="ALWAYS"/>
+            <Button fx:id="sendButton" text="Send" styleClass="send-button"/>
         </HBox>
     </VBox>
 

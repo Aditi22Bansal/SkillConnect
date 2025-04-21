@@ -285,16 +285,25 @@ public class ChatController {
         messageField.setDisable(true); // Disable until user is selected
         sendButton.setDisable(true);
 
+        // Single listener for text changes to enable/disable send button
         messageField.textProperty().addListener((observable, oldValue, newValue) -> {
             boolean hasText = newValue != null && !newValue.trim().isEmpty();
             boolean hasSelectedUser = selectedUser != null;
             sendButton.setDisable(!hasText || !hasSelectedUser);
         });
 
+        // Handle Enter key press
         messageField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER && !sendButton.isDisabled()) {
                 handleSendMessage();
+                event.consume(); // Prevent event from bubbling up
             }
+        });
+
+        // Handle send button click
+        sendButton.setOnAction(event -> {
+            handleSendMessage();
+            event.consume(); // Prevent event from bubbling up
         });
     }
 
